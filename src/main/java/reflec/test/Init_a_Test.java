@@ -34,14 +34,13 @@ public class Init_a_Test extends ClassLoader{
 
 //        getPath();
         Init_a_Test i =new Init_a_Test();
-        Iterator<Class<?>> iterator=i.getPath().iterator();
+        Iterator<Class<?>> iterator=i.getPath("reflec").iterator();
         while (iterator.hasNext()){
             System.out.println(iterator.next());
         }
     }
-    public  Set<Class<?>> getPath() throws IOException {
+    public  Set<Class<?>> getPath(String pack) throws IOException {
         Set<Class<?>> set =new HashSet<>();
-        String pack="reflec";
         Enumeration<URL> path =Thread.currentThread().getContextClassLoader().getResources(pack);
         while (path.hasMoreElements()){
             URL url =path.nextElement();

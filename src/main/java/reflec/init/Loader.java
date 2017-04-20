@@ -57,4 +57,10 @@ public class Loader {
             System.out.println(iterator.next());
         }
     }
+    public static Set<Class<?>> getBean(String packageName) throws FileNotFoundException {
+        Loader loader = new Loader();
+        Set<Class<?>> set = new HashSet<>();
+        set=loader.getClassSet(set,loader.getPath(), packageName);
+        return set;
+    }
 }
