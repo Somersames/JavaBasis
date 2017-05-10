@@ -5,7 +5,7 @@ package Thread.elevator;
  */
 public class Elevator {
     private int NowNum;
-
+    
     public Elevator() {
     }
 
