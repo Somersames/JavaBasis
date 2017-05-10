@@ -30,7 +30,7 @@ public class InitBank {
         while (!Store.queue.isEmpty()){
 //            System.out.println("队列是否为空+！"+!Store.queue.isEmpty());
 //            bankSystem.doSpend();
-            this.executorService.execute(new PopWindows());
+            this.executorService.execute(new ServiceWindows(Store.queue.poll()));
         }
 //        System.out.println("已经执行到这里了");
 
@@ -38,9 +38,13 @@ public class InitBank {
     public static void main(String args[]) throws InterruptedException {
         InitBank initBank =new InitBank();
         initBank.init();
-        Thread.sleep(1000);
-        if (Store.queue.isEmpty())
-        initBank.executorService.shutdownNow();
-
+        Thread.currentThread().sleep(20000);// 需要设置长时间，否则导致main方法结束后的下面方法结束了线程池
+//        if (Store.queue.isEmpty()) {
+//            try {
+//                initBank.executorService.shutdownNow();
+//            } catch (java.lang.NullPointerException e) {
+//                System.out.println("一经被捕捉");
+//            }
+//        }
     }
 }

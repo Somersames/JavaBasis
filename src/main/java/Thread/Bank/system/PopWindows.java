@@ -17,8 +17,12 @@ public class PopWindows implements  Runnable{
     }
 
     public void spend() throws InterruptedException {
-        int nowNUm =Store.queue.poll();
-        System.out.println("线程：" + Thread.currentThread().getName() + "正在为" + nowNUm + "服务");
-        Thread.currentThread().sleep(1000);
+        if(!Store.queue.isEmpty()) {
+            int nowNUm = Store.queue.poll();
+            System.out.println("线程：" + Thread.currentThread().getName() + "正在为" + nowNUm + "服务");
+            Thread.currentThread().sleep(1000);
+        }else{
+            System.out.println("当前一经没有客户");
+        }
     }
 }

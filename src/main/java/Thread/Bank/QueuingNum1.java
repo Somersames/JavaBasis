@@ -2,9 +2,7 @@ package Thread.Bank;
 
 import Thread.Bank.system.DoCall;
 
-import javax.print.Doc;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Created by szh on 2017/5/8.
