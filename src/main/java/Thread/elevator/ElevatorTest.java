@@ -1,13 +1,27 @@
 package Thread.elevator;
 
+import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Created by szh on 2017/5/10.
  */
 public class ElevatorTest {
-    public static void main(String args[]){
-        Elevator elevator =new Elevator();
-        elevator.setNowNum(10);
-        elevator.elevatorDown();
-        System.out.println(elevator.getNowNum());
+    ExecutorService executorService = Executors.newFixedThreadPool(3);
+    public static void main(String args[]) throws InterruptedException, ExecutionException {
+//        Elevator elevator =new Elevator();
+//        elevator.setNowNum(10);
+//        elevator.elevatorDown();
+//        System.out.println(elevator.getNowNum());
+        EevatorControll eevatorControll =new EevatorControll();
+        Scanner scanner =new Scanner(System.in);
+        while (true){
+            String line =scanner.nextLine();
+            int num =Integer.parseInt(line);
+            eevatorControll.receive(num);
+        }
     }
+
 }
