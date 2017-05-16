@@ -34,9 +34,9 @@ public class EevatorControll {
 //    }
 
     public void receive(int id) throws InterruptedException, ExecutionException {
-        if(futureList.isEmpty()){
-            eleStart();
-        }
+//        if(futureList.isEmpty()){
+//            eleStart();
+//        }
         int[] i =new int[3];
         int temp=0;
         //这一步需要挑选出合适的线程来执行操作
@@ -56,17 +56,20 @@ public class EevatorControll {
             System.out.println(i.length+"i的长度");
             temp=temp+1;
         }
+        temp=0;
         int index =getMin(i); //获取数组里面较小的索引楼梯
         elevatorList.get(index).goTo(id); //去目的地
     }
-    private void eleStart() throws InterruptedException {
-        Elevator elevator =new Elevator();
-        elevator.setFlag(true);
-        elevator.setState(1); //1代表上升
+    public  void eleStart(int id) throws InterruptedException {
+            Elevator elevator = new Elevator(id);
+            elevator.setFlag(true);
+            elevator.setState(1); //1代表上升
 //        elevator.elevatorUp(); 先不着急上升
-        elevatorList.add(elevator);
-        Future<Integer> future =executorService.submit(elevator);  //runnable可以直接被执行的
-        futureList.add(future);
+            //应该在这里判断看看是否需要新建一个线程来表示电梯
+            elevatorList.add(elevator);
+            executorService.execute(elevator);
+//        Future<Integer> future =executorService.submit(elevator);  //runnable可以直接被执行的
+//        futureList.add(future);
     }
 
 

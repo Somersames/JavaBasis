@@ -1,11 +1,12 @@
 package Thread.elevator;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by szh on 2017/5/10.
  */
-public class Elevator implements Callable<Integer>{
+public class Elevator implements Runnable{
     private static EevatorControll eevatorControll;
     private int NowNum;
     private int state; // 1代表上升 0代表停止 -1代表下降
@@ -14,6 +15,14 @@ public class Elevator implements Callable<Integer>{
         eevatorControll=new EevatorControll();
         NowNum=0;
     }
+    private int id;
+
+    public Elevator(int id) {
+        this.id = id;
+        eevatorControll=new EevatorControll();
+        NowNum=0;
+    }
+
     public int getNowNum() {
         return NowNum;
     }
@@ -68,11 +77,13 @@ public class Elevator implements Callable<Integer>{
             }
         }
     }
-    @Override
-    public Integer call() throws Exception { //需要在这里执行一系列的操作
-//        eevatorControll.receive();
-        return this.getNowNum();
-    }
+//    @Override
+//    public Integer call() throws Exception { //需要在这里执行一系列的操作
+////        eevatorControll.receive();
+////        return this.getNowNum();
+//        eevatorControll.receive(this.id);
+//        return this.getNowNum();
+//    }
 
     public int getState() {
         return state;
@@ -103,5 +114,16 @@ public class Elevator implements Callable<Integer>{
 //                this.setState(0);
 //            }
 //        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            eevatorControll.receive(this.id);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
