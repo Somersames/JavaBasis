@@ -1,7 +1,9 @@
 package reflec.Myself_Test;
 
 /*
-利用反射分别修改 static final 的声明和对象*/
+利用反射分别修改 static final 的声明和对象
+前一个方法代表修改变量，后一个为对象
+*/
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 

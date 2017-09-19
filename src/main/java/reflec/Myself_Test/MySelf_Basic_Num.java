@@ -1,5 +1,7 @@
 package reflec.Myself_Test;
-
+/*
+* 测试使用
+* */
 public class MySelf_Basic_Num {
     private  static final int  Sum_1 =10;
     private static   Integer Integer_sum = 100;
