@@ -30,7 +30,7 @@ public class InitBank {
         while (!Store.queue.isEmpty()){
 //            System.out.println("队列是否为空+！"+!Store.queue.isEmpty());
 //            bankSystem.doSpend();
-            this.executorService.execute(new ServiceWindows(Store.queue.poll()));
+//            this.executorService.execute(new ServiceWindows(Store.queue.poll()));
         }
 //        System.out.println("已经执行到这里了");
 
