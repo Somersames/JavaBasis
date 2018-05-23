@@ -1,0 +1,11 @@
+@startuml
+CGLIBProxy -> ProxyUtil: new()
+ProxyUtil --> Reflect: new()
+Reflect --> Reflect: getAnnotationClass()
+Reflect --> ProxyUtil: return reflect
+ProxyUtil --> CGLIBProxy: return proxyutil
+CGLIBProxy --> Enhancer : getProxy()
+Enhancer --> CGLIBProxy : return enhancer
+CGLIBProxy --> ProxyUtil : generateEntity(ProxyEntity proxyEntity)
+CGLIBProxy --> ProxyUtil : doAfter(ProxyEntity proxyEntity,Map<String,String> map)
+@enduml

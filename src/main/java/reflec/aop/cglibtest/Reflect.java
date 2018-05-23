@@ -35,24 +35,13 @@ public class Reflect {
                    Before before =method.getAnnotation(Before.class); // 获取注解 ,在这里如果是clazz.getAnnotation()获取的是类注解
                     String beforeValue=before.value();
                     map.put(method.getName()+ "-"+clazzName+"-"+"before",beforeValue.substring(0,beforeValue.length()-2)); // 存入的是方法名和注解名
-//                    System.out.println(method.getName()+ "-"+clazzName+"-"+"before");  //输出结果  beforeSing-reflec.aop.cglibtest.Player
-//                    System.out.println(beforeValue.substring(0,beforeValue.length()-2)+"------------------beforeValue");
                 }
                 if (method.isAnnotationPresent(After.class)) {
                     After after =method.getAnnotation(After.class); // 获取注解 ,在这里如果是clazz.getAnnotation()获取的是类注解
                     String afterValue=after.value();
                     map.put(method.getName()+ "-"+clazzName+"-"+"after",afterValue.substring(0,afterValue.length()-2));
-//                    System.out.println(afterValue);
                 }
             }
         }
     }
-//    public static void main(String args[]) throws ClassNotFoundException {
-////        getAnnotationClass();
-//    }
-//    private void divisionValue(String name) throws ClassNotFoundException {
-//        String headStr=name.substring(0,name.lastIndexOf("."));
-//        String endStr=name.substring(name.lastIndexOf(".")+1,name.length());
-////        map.put(headStr,endStr); // 存入以防止
-//    }
 }

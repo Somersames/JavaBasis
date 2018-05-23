@@ -11,11 +11,6 @@ import java.util.Map;
  * Created by szh on 2017/4/22.
  */
 public class ProxyUtil {
-    //    ProxyEntity proxyEntity;
-//
-//    public ProxyUtil(ProxyEntity proxyEntity) {
-//        this.proxyEntity = proxyEntity;
-//    }
     /*
     加载出所有的before注解
     生成invokesuper方法
@@ -34,27 +29,20 @@ public class ProxyUtil {
 
     //该方法负责代理
     public Object generateEntity(ProxyEntity proxyEntity) throws Throwable {
-//        System.out.println("测试before注解的方法"); //
-//        Map<String,String> methodMap =reflect.getMap();
-//        for(Map.Entry<String,String> map :methodMap.entrySet() ){
-//            if(map.getValue().equals(proxyEntity.getClazz().toString().substring()))
-//        }
-//        System.out.println(proxyEntity.getMethodProxy().toString());
         String proxyMethodValue = proxyEntity.getMethod().toString().substring(proxyEntity.getMethod().toString().lastIndexOf(" ") + 1, proxyEntity.getMethod().toString().indexOf("("));
-//        System.out.println(proxyMethodValue); //reflec.aop.cglibtest.Music.sing
         Map<String, String> methodMap = reflect.getMap();
         for (Map.Entry<String, String> map : methodMap.entrySet()) {
             if (map.getValue().equals(proxyMethodValue)) {
                 String[] str = mapKeyDivision(map.getKey());
                 if (str[2].equals("before")) {
-                    Class<?> clazz = Class.forName(str[1], false, Thread.currentThread().getContextClassLoader()); // 加载该类
+                    /* 加载该类 */
+                    Class<?> clazz = Class.forName(str[1], false, Thread.currentThread().getContextClassLoader());
                     Method method = clazz.getDeclaredMethod(str[0]);
-                    method.invoke(clazz.newInstance(), null); // 这一步需要原始的类
+                    /* 这一步需要原始的类 */
+                    method.invoke(clazz.newInstance(), null);
                 }
             }
         }
-//        System.out.println(proxyEntity.getClazz().toString().subSequence(6,proxyEntity.getClazz().toString().length()));
-        //在这里是因为无法很好解决后置通知
         return doAfter(proxyEntity,methodMap);
     }
     private Object  doAfter(ProxyEntity proxyEntity,Map<String,String> map) throws Throwable {
@@ -74,7 +62,6 @@ public class ProxyUtil {
     }
 
     private String[] mapKeyDivision(String value) {
-//        String value="beforeSing-reflec.aop.cglibtest.Player-before";
         String[] str = new String[10];
         str[0] = value.substring(0, value.indexOf("-"));
         str[1] = value.substring(value.indexOf("-") + 1, value.lastIndexOf("-"));

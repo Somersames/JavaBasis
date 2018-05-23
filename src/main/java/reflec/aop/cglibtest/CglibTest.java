@@ -8,6 +8,6 @@ public class CglibTest {
 public static void main(String args[]) throws ClassNotFoundException {
     Music music = new Music();
     CGLIBProxy cglibProxy = new CGLIBProxy(music);
-    ((Music)cglibProxy.getProxy()).sing("ceshi de ");
+    ((Music)cglibProxy.getProxy()).sing("正在唱歌");
 }
 }

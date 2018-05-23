@@ -13,7 +13,8 @@ public class BankSystem {
         if (Store.queue.isEmpty()) {
             executor.shutdownNow();
         } else {
-            executor.execute(new ServiceWindows(Store.queue.poll())); // 执行操作任务
+//            executor.execute(new ServiceWindows(Store.queue.poll())); // 执行操作任务
+            executor.execute(new PopWindows()); // 执行操作任务
         }
     }
 }

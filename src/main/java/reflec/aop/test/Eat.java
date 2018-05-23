@@ -8,5 +8,4 @@ public class Eat {
     public void startEat(){
         System.out.println("开始吃饭");
     }
-
 }

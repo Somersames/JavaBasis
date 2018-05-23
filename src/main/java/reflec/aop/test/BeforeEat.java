@@ -11,11 +11,11 @@ import reflec.aop.MyAspect;
 public class BeforeEat {
     @Before("reflec.aop.test.Eat.startEat()")
     public void beforeStart() {
-        System.out.println("开始吃饭前的准备");
+        System.out.println("吃饭前的准备");
     }
 
     @After("reflec.aop.test.Eat.startEat()")
     public void afterEat() {
-        System.out.println("吃饭完毕以后");
+        System.out.println("吃完之后的离场");
     }
 }

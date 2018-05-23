@@ -50,19 +50,6 @@ public class Grab {
                     InputStream inputStream = httpEntity.getContent();
                     readFormServer(inputStream);
                 }
-                //lastact
-                //oldtopics
-                //sid
-//                for(int i=0;i<headers.length;i++)
-//                {
-//                    String s =headers[i].toString();
-//                    String ss ="";
-//                    if(s.startsWith("Set-Cookie")) {
-//                        ss=s.substring(15, s.length());
-//                    }
-//                    System.out.println(ss);
-////                    System.out.println(s);
-//                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -78,27 +65,16 @@ public class Grab {
      */
     public void readFormServer(InputStream inputStream) throws IOException {
         File file = new File("D:\\JavaBasis\\cookies\\data.txt");
-//        FileWriter fileWriter = new FileWriter(file);
         FileOutputStream fileout = new FileOutputStream(file);
         byte[] bytes = new byte[1024];
         int len;
         Pattern parent = null;
         Matcher matcher = null;
-//        parent=Pattern.compile("[a-zA-z]+://[^\\s]*");
         parent = Pattern.compile("[a-zA-z]+://[^\\s]*(?:3D1192\\b)");
         while ((len = inputStream.read(bytes)) != -1) {
             String s = new String(bytes, 0, len);
             matcher = parent.matcher(s);
             if (matcher.find()) {
-                /*
-                对截取的html进行裁剪，使其符合规范
-                 */
-//                String cutresult=matcher.group().toString().replace("\""," ");
-//                int m=cutresult.indexOf("html",1);
-//                String newString=cutresult= cutresult.substring(0,m+4);
-//                System.out.println(cutresult);
-//                if(!set.contains(cutresult))
-//                    set.add(cutresult);
                 String cutresult = matcher.group().toString();
                 if (map.get(cutresult) == null)
                     map.put(cutresult, false);
@@ -106,45 +82,8 @@ public class Grab {
             fileout.write(bytes, 0, len);
             fileout.flush();
         }
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"gbk"));
-//        String line = null;
-//        while ((line = bufferedReader.readLine()) != null) {
-//            fileWriter.write(line);
-//            fileWriter.flush();
-//        }
         showmap();
     }
-//    public void writerToRead(InputStream inputStream) throws IOException {
-//        File file = new File("D:\\JavaBasis\\cookies\\data.txt");
-//        FileWriter fileWriter =new FileWriter(file);
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//        StringBuffer sb =new StringBuffer();
-//        String line =null;
-//        Pattern pattern =null;
-//        Matcher matcher =null;
-////        pattern=Pattern.compile("http://bbs.zhiyoo.com/(?:thread-)[0-9][^\\s]*"); //匹配每一个帖子的url
-//        pattern=Pattern.compile("[a-zA-z]+://[^\\s]*(?:3D1192\\b)"); //匹配每一个帖子的url
-//        while ((line =bufferedReader.readLine())!=null)
-//        {
-//            matcher=pattern.matcher(line);
-//            if(matcher.find())
-//            {
-//                /*
-//                对截取的html进行裁剪，使其符合规范
-//                 */
-////                String cutresult=matcher.group().toString().replace("\""," ");
-//                String cutresult=matcher.group().toString();
-////                int m=cutresult.indexOf("html",1);
-////                String newString=cutresult= cutresult.substring(0,m+4);
-//                System.out.println(cutresult);
-//                if (map.get(cutresult)== null)
-//                map.put(cutresult,false);
-//            }
-//            fileWriter.write(line);
-//            fileWriter.flush();
-//        }
-//        showmap(); // 对map帖子里面的连接再次进行爬取
-//    }
 
     public String readCookie(String fileName) throws IOException {
         File file = new File(fileName);
@@ -167,12 +106,7 @@ public class Grab {
             System.out.println(tid+"---------tid");
             RequestPhoto(tid);
             System.out.println(entry.getKey() + "------------map里面的url");
-//            map.remove(entry.getKey());
         }
-//        Iterator<String> iterator =set.iterator();
-//        while(iterator.hasNext()){
-//            System.out.println(iterator.next());
-//        }
     }
 
     public void RequestPhoto(String tid) {
@@ -184,7 +118,6 @@ public class Grab {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             str = EntityUtils.toString(new UrlEncodedFormEntity(params, Consts.UTF_8));
-//            System.out.println(url + "---------------downloadPhotoRequest");
             HttpGet httpGet = new HttpGet("http://bbs.zhiyoo.com/forum.php" + "?" + str);
             httpGet.setHeader("Cookie", readCookie("D:\\JavaBasis\\cookies\\downloadcookies.txt"));
             httpGet.setHeader("Refer", "http://bbs.zhiyoo.com/tforum-98-1192-1.html");
@@ -217,19 +150,10 @@ public class Grab {
     }
 
     /*
-    获取点击分类后的页面
-     */
-    public void sortTidGet() {
-
-    }
-
-    /*
     请求图片地址获取图片然后保存
      */
     public void SavePhoto(InputStream inputStream) throws IOException {
-//        File file =new File(fileName);
         DataInputStream dataInputStream = new DataInputStream(inputStream);
-//        FileOutputStream fileOutputStream= new FileOutputStream(file);
         byte[] bytes = new byte[1024];
         int len = 0;
         Pattern pattern = null;
@@ -250,9 +174,6 @@ public class Grab {
                 if (!set.contains(newSteing))
                     set.add(newSteing);
             }
-//            fileOutputStream.write(bytes,0,len);
-//            fileOutputStream.flush();
-
         }
         showSet();
     }
@@ -261,11 +182,6 @@ public class Grab {
     测试Set
      */
     public void showSet() {
-//        Iterator<String> iterator =set.iterator();
-//        while (iterator.hasNext())
-//        {
-//            System.out.println(iterator.next()+"--------set");
-//        }
         Iterator<String> iterator = set.iterator();
         while (iterator.hasNext()) {
             String s = iterator.next();
@@ -277,15 +193,8 @@ public class Grab {
     }
 
     public void downloadPhotoRequest(String url, String fileName) {
-//        List<NameValuePair> params = new ArrayList<NameValuePair>();
-//        params.add(new BasicNameValuePair("mod", ""));
-//        params.add(new BasicNameValuePair("tid", ""));
-//        params.add(new BasicNameValuePair("extra", ""));
-//        String str = null;
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-//            str = EntityUtils.toString(new UrlEncodedFormEntity(params, Consts.UTF_8));
-//            System.out.println(url + "---------------downloadPhotoRequest");
             HttpGet httpGet = new HttpGet(url);
             httpGet.setHeader("Cookie", readCookie("D:\\JavaBasis\\cookies\\downloadcookies.txt"));
             httpGet.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36");
@@ -320,16 +229,7 @@ public class Grab {
         while ((len = dataInputStream.read(bytes)) != -1) {
             fileOutputStream.write(bytes, 0, len);
             fileOutputStream.flush();
-//            showSet();
         }
     }
-//    @Test
-//    public void Stringte()
-//    {
-//        String s ="http://attach.zhiyoo.com/forum/201607/08/201044yr9d7earyjdafm48.jpg file=http://attach.zhiyoo.com/forum/201607/08/201044yr9d7earyjdafm48.jpg";
-//        System.out.println(s.indexOf(".jpg", 0));
-//        System.out.println(s.substring(0, s.indexOf(".jpg", 0)+4));
-//        System.out.println(s);
-//    }
 
 }
