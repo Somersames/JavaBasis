@@ -19,6 +19,9 @@ public class EchoClientHandle extends SimpleChannelInboundHandler<ByteBuf>{
 //    protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) throws Exception {
 //        System.out.println("客端接受到的数据是" + byteBuf.toString(CharsetUtil.UTF_8));
 //    }
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) throws Exception {
+        System.out.println("客端接受到的数据是" + byteBuf.toString(CharsetUtil.UTF_8));
+    }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {  // 这和方法是当连接成功之后的一个方法调用
@@ -40,5 +43,6 @@ public class EchoClientHandle extends SimpleChannelInboundHandler<ByteBuf>{
     @Override
     protected void messageReceived(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) throws Exception {
         System.out.println("客端接受到的数据是" + byteBuf.toString(CharsetUtil.UTF_8));
+
     }
 }
