@@ -3,10 +3,7 @@ package NettyInAction.ch2.echo;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -40,20 +37,29 @@ public class EchoClient {
                         }
                     });
             ChannelFuture f= b.connect().sync();
+            f.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                    if(f.isSuccess()){
+                        System.out.println("有客户端链接");
+                    }
+                }
+            });
             Channel channel =f.channel();
             Scanner scanner =new Scanner(System.in);
 //            ByteBuf byteBuf=null;
             while (true){
                 String Message =scanner.nextLine();
                 if(Message.length() != 0){
+                    if(Message.equals("exit")){
+                        break;
+                    }
 //                    byteBuf.writeBytes(Message.getBytes());
                     System.out.println(Message);
 //                    f.channel().writeAndFlush(Unpooled.copiedBuffer(Message,CharsetUtil.UTF_8));
 //                    f.channel().flush();
                     System.out.println(f.channel().isActive());
                     e.list.get(0).writeAndFlush(Unpooled.copiedBuffer(Message,CharsetUtil.UTF_8));
-                }if(Message =="exit"){
-                    break;
                 }
             }
             f.channel().closeFuture().sync();

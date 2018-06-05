@@ -102,6 +102,7 @@ public class T2 {
         for(int i :array){
             System.out.println(i);
         }
+
     }
     @Test
     public void te(){
