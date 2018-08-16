@@ -6,6 +6,33 @@ package Leetcode;
  **/
 public class MinimumAbsoluteDifferenceinBST {
 
+     TreeNode nodeval=null;
+     int min=Integer.MAX_VALUE;
+
+    ///////
+    public int getMinimumDifferenceTwo(TreeNode root) {
+        if(root != null)
+            compareTreeNode(root);
+        return min;
+    }
+    public void compareTreeNode(TreeNode node){
+
+        if(node == null){
+            return;
+        }
+        compareTreeNode(node.left);
+        if(nodeval != null){
+            min =Math.min(node.val - nodeval.val ,min);
+        }
+        nodeval =node;
+        compareTreeNode(node.right);
+    }
+
+
+
+
+
+    /////
     public int getMinimumDifference(TreeNode root) {
         if(root != null){
             return  compareTree(Integer.MAX_VALUE,root);
@@ -74,23 +101,24 @@ public class MinimumAbsoluteDifferenceinBST {
 
 
     public static void main(String[] args) {
-//        TreeNode  t =new TreeNode(1);
-//        TreeNode t1 =new TreeNode(3);
-//        TreeNode t2 =new TreeNode(2);
-//        t1.left=t2;
-//        t.right=t1;
+        TreeNode  t =new TreeNode(1);
+        TreeNode t1 =new TreeNode(5);
+        TreeNode t2 =new TreeNode(3);
+        t1.left=t2;
+        t.right=t1;
 
-        TreeNode  t =new TreeNode(236);
-        TreeNode  t1 =new TreeNode(104);
-        TreeNode  t2 =new TreeNode(227);
-        TreeNode  t3 =new TreeNode(701);
-        TreeNode  t4 =new TreeNode(911);
-        t1.right=t2;
-        t3.right=t4;
-        t.left=t1;
-        t.right=t3;
+//        TreeNode  t =new TreeNode(236);
+//        TreeNode  t1 =new TreeNode(104);
+//        TreeNode  t2 =new TreeNode(227);
+//        TreeNode  t3 =new TreeNode(701);
+//        TreeNode  t4 =new TreeNode(911);
+//        t1.right=t2;
+//        t3.right=t4;
+//        t.left=t1;
+//        t.right=t3;
 //        System.out.println(new MinimumAbsoluteDifferenceinBST().getMinimumDifference(t));
-        System.out.println(new MinimumAbsoluteDifferenceinBST().getMinimum(t));
+//        System.out.println(new MinimumAbsoluteDifferenceinBST().getMinimum(t));
+        System.out.println(new MinimumAbsoluteDifferenceinBST().getMinimumDifferenceTwo(t));
     }
 
 }
